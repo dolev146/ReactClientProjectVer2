@@ -23,11 +23,11 @@ export default function Searchbar({ update }) {
         try {
             (async () => {
                 if (!user.login) {
-                    let res = await fetch("http://localhost:1000/flights/")
+                    let res = await fetch("http://localhost:1000/vacations/")
                     let data = await res.json()
                     update(data)
                 } else {
-                    let res = await fetch("http://localhost:1000/flights/regular/" + user.userid, {
+                    let res = await fetch("http://localhost:1000/vacations/regular/" + user.userid, {
                         method: "GET",
                         headers: { "content-type": "application/json", "Authorization": localStorage.token }
                     })

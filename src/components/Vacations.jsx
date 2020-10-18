@@ -3,15 +3,16 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import FilterVacations from './FilterVacations'
-import Flight from './Flight'
+import Vacation from './Vacation'
 import Logout from './Logout'
 import NoResultBar from './NoResultBar'
 import Searchbar from './Searchbar'
+import FlightIcon from '@material-ui/icons/Flight';
 
 
-export default function Flights({ history }) {
+export default function Vacations({ history }) {
 
-    const [flights, setFlights] = useState([])
+    const [vacations, setvacations] = useState([])
     const [show, setshow] = useState("All")
 
     const dispatch = useDispatch()
@@ -20,23 +21,28 @@ export default function Flights({ history }) {
     useEffect(() => {
         (async () => {
             if (!user.login || user.role === "admin") {
-                let res = await fetch("http://localhost:1000/flights/")
+                let res = await fetch("http://localhost:1000/vacations/")
                 let data = await res.json()
-                setFlights(data)
+                setvacations(data)
             } else if (user.role === "user") {
-                let url = show === "All" ? "http://localhost:1000/flights/regular/" : "http://localhost:1000/flights/followed/"
-                let res = await fetch(url + user.userid, {
+                let url = show === "All" ? "http://localhost:1000/vacations/regular/" : "http://localhost:1000/vacations/followed/"
+                if (url === "http://localhost:1000/vacations/regular/") {
+                    setshow("All")
+                }
+                let res = await fetch(url + user.userid, { 
                     method: "GET",
                     headers: { "content-type": "application/json", "Authorization": localStorage.token }
                 })
                 let data = await res.json()
-                if (data.error) {
+                if (data.error || !data.length) {
                     dispatch({ type: "visible" })
                     setTimeout(() => {
                         dispatch({ type: "hidden" })
                     }, 5000);
+                    setshow("All")
                 } else {
-                    setFlights(data)
+                    console.log(data)
+                    setvacations(data)
                 }
 
             }
@@ -47,7 +53,7 @@ export default function Flights({ history }) {
 
     return (
         <div className="container">
-            <h1 className="header">flights</h1>
+            <h1 className="header"><FlightIcon fontSize="large"/> vacations</h1>
             {user.login ? (<div>
                 <h1>hello {user.fname} <span className="logout-btn"><Logout /></span>  </h1>
             </div>
@@ -59,14 +65,14 @@ export default function Flights({ history }) {
                 )}
 
 
-            <Searchbar update={setFlights} />
+            <Searchbar update={setvacations} />
             <NoResultBar />
 
             {user.login && user.role === "user" && <FilterVacations show={show} setshow={setshow} />}
 
             {user.login && user.role === "admin" &&
                 <>
-                    <Button variant="contained" color="primary" onClick={() => history.push("/add")}>Add Flight</Button>
+                    <Button variant="contained" color="primary" onClick={() => history.push("/add")}>Add vacation</Button>
                 </>
             }
             {user.login && user.role === "admin" &&
@@ -79,8 +85,8 @@ export default function Flights({ history }) {
 
 
             {
-                <div className="flights">
-                    {flights.map(f => (<Flight update={setFlights} key={f.id} flight={f} />))}
+                <div className="vacations">
+                    {vacations.map(f => (<Vacation show={show} update={setvacations} key={f.id} vacation={f} />))}
                 </div>
             }
 
