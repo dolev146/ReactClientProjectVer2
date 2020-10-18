@@ -30,7 +30,7 @@ export default function Flights({ history }) {
                     headers: { "content-type": "application/json", "Authorization": localStorage.token }
                 })
                 let data = await res.json()
-                if (data.error) {
+                if (data.error || !data.length) {
                     dispatch({ type: "visible" })
                     setTimeout(() => {
                         dispatch({ type: "hidden" })
