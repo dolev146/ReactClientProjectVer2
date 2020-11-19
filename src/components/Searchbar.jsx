@@ -23,11 +23,11 @@ export default function Searchbar({ update }) {
         try {
             (async () => {
                 if (!user.login) {
-                    let res = await fetch("http://localhost:1000/vacations/")
+                    let res = await fetch("https://e6xpl.sse.codesandbox.io/vacations/")
                     let data = await res.json()
                     update(data)
                 } else {
-                    let res = await fetch("http://localhost:1000/vacations/regular/" + user.userid, {
+                    let res = await fetch("https://e6xpl.sse.codesandbox.io/vacations/regular/" + user.userid, {
                         method: "GET",
                         headers: { "content-type": "application/json", "Authorization": localStorage.token }
                     })
@@ -43,7 +43,7 @@ export default function Searchbar({ update }) {
 
     const handleSubmit = async e => {
         e.preventDefault()
-        let adress = "http://localhost:1000/search?Checkin=" + Checkin + "&CheckOut=" + CheckOut + "&TexttoSearch=" + TexttoSearch
+        let adress = "https://e6xpl.sse.codesandbox.io/search?Checkin=" + Checkin + "&CheckOut=" + CheckOut + "&TexttoSearch=" + TexttoSearch
         try {
             let res = await fetch(adress)
             let data = await res.json()

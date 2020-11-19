@@ -12,7 +12,7 @@ export default function Signup({ history }) {
     const handleSubmit = async e => {
         e.preventDefault()
         try {
-            let res = await fetch("http://localhost:1000/users/register", {
+            let res = await fetch("https://e6xpl.sse.codesandbox.io/users/register", {
                 method: "POST",
                 headers: { "content-type": "application/json" },
                 body: JSON.stringify({ username, password, fname, lname })

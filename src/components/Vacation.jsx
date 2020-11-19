@@ -68,7 +68,7 @@ export default function Vacation({ vacation, update, show }) {
 
     const handleUnFollow = async () => {
         try {
-            let res = await fetch("http://localhost:1000/orders/delete", {
+            let res = await fetch("https://e6xpl.sse.codesandbox.io/orders/delete", {
                 method: "POST",
                 headers: { "Content-Type": "application/json", "Authorization": localStorage.token },
                 body: JSON.stringify({ userId: user.userid, vacationId: vacation.id , show })
@@ -85,7 +85,7 @@ export default function Vacation({ vacation, update, show }) {
 
 
     const handleDelete = async () => {
-        let res = await fetch("http://localhost:1000/vacations/" + vacation.id, {
+        let res = await fetch("https://e6xpl.sse.codesandbox.io/vacations/" + vacation.id, {
             method: "DELETE",
             headers: { "Authorization": localStorage.token },
         })
@@ -98,7 +98,7 @@ export default function Vacation({ vacation, update, show }) {
 
     const handleFollow = async () => {
         try {
-            let res = await fetch("http://localhost:1000/orders/", {
+            let res = await fetch("https://e6xpl.sse.codesandbox.io/orders/", {
                 method: "POST",
                 headers: { "Content-Type": "application/json", "Authorization": localStorage.token },
                 body: JSON.stringify({ userId: user.userid, vacationId: vacation.id , show})

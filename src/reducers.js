@@ -40,21 +40,5 @@ export const Warning = (state = initialWarning, action) => {
     }
 }
 
-// let initialInSideRadioBtn = {
-//    cards : "all"
-// }
 
-// export const InSideRadioBtn = (state = initialInSideRadioBtn, action) => {
-//     switch (action.type) {
-//         case "followed":
-//             let newState = {
-//                 cards : "followed"
-//             }
-//             return newState
-//         case "all":
-//             return initialInSideRadioBtn
-//         default:
-//             return state
-//     }
-// }
 

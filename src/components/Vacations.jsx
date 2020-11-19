@@ -21,15 +21,15 @@ export default function Vacations({ history }) {
     useEffect(() => {
         (async () => {
             if (!user.login || user.role === "admin") {
-                let res = await fetch("http://localhost:1000/vacations/")
+                let res = await fetch("https://e6xpl.sse.codesandbox.io/vacations/")
                 let data = await res.json()
                 setvacations(data)
             } else if (user.role === "user") {
-                let url = show === "All" ? "http://localhost:1000/vacations/regular/" : "http://localhost:1000/vacations/followed/"
-                if (url === "http://localhost:1000/vacations/regular/") {
+                let url = show === "All" ? "https://e6xpl.sse.codesandbox.io/vacations/regular/" : "https://e6xpl.sse.codesandbox.io/vacations/followed/"
+                if (url === "https://e6xpl.sse.codesandbox.io/vacations/regular/") {
                     setshow("All")
                 }
-                let res = await fetch(url + user.userid, { 
+                let res = await fetch(url + user.userid, {
                     method: "GET",
                     headers: { "content-type": "application/json", "Authorization": localStorage.token }
                 })
@@ -53,17 +53,21 @@ export default function Vacations({ history }) {
 
     return (
         <div className="container">
-            <h1 className="header"><FlightIcon fontSize="large"/> vacations</h1>
-            {user.login ? (<div>
-                <h1>hello {user.fname} <span className="logout-btn"><Logout /></span>  </h1>
-            </div>
-            ) : (
-                    <>
-                        <Link className="btn btn-primary" to="/login">login</Link>
-                        <Link className="btn btn-success" to="/signup" >signup</Link>
-                    </>
-                )}
+            <h1 className="header"><FlightIcon fontSize="large" /> vacations</h1>
 
+            <div >
+                {user.login ? (<div className="flex-login">
+                    <h1>Hello {user.fname} </h1> <span className="logout-btn"><Logout /></span>
+                </div>
+                ) : (
+                        <>
+                            <div className="flex-buttons">
+                                <Link className="btn btn-primary" to="/login">login</Link>
+                                <Link className="btn btn-success" to="/signup" >signup</Link>
+                            </div>
+                        </>
+                    )}
+            </div>
 
             <Searchbar update={setvacations} />
             <NoResultBar />
@@ -81,7 +85,7 @@ export default function Vacations({ history }) {
                 </>
             }
 
-           
+
 
 
             {

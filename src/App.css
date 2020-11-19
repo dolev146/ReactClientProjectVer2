@@ -43,3 +43,15 @@
   margin-left: 20%;
   font-style: italic;
 }
+
+
+.flex-buttons{
+  display: flex; 
+  justify-content: flex-end;
+}
+
+
+.flex-login{
+display: flex;
+justify-content: space-between;
+}

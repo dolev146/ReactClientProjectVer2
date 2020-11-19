@@ -21,7 +21,7 @@ export default function EditVacation({ match, history }) {
             alert("you left empty feilds , please fill them up")
         } else {
             try {
-                let res = await fetch("http://localhost:1000/vacations/" + match.params.id, {
+                let res = await fetch("https://e6xpl.sse.codesandbox.io/vacations/" + match.params.id, {
                     method: "PUT",
                     headers: { "content-type": "application/json", "Authorization": localStorage.token },
                     body: JSON.stringify({ descrip, dest, dept, arv, price })
@@ -40,7 +40,7 @@ export default function EditVacation({ match, history }) {
             history.push("/")
         }
         (async () => {
-            let res = await fetch("http://localhost:1000/vacations/" + match.params.id)
+            let res = await fetch("https://e6xpl.sse.codesandbox.io/vacations/" + match.params.id)
             let data = await res.json()
             console.log(data[0])
             setdescrip(data[0].descrip)
@@ -52,16 +52,19 @@ export default function EditVacation({ match, history }) {
         })()
     }, [])
     return (
-        <div className="header">
-            <Link to="/">back</Link>
+        <div className="container">
+            <h1 className="header">Edit</h1>
+            <Link className="btn btn-primary" to="/">back</Link>
             <form onSubmit={handleSubmit} >
-                <input value={dest} onChange={e => setdest(e.target.value)} type="text" placeholder="destination" />
-                <input value={descrip} onChange={e => setdescrip(e.target.value)} type="text" placeholder="description" />
-                <input onChange={e => setpicture(e.target.value)} type="text" placeholder="picture_URL" />
-                <input value={dept} onChange={e => setdept(e.target.value)} type="date" placeholder="departure" />
-                <input value={arv} onChange={e => setarv(e.target.value)} type="date" placeholder="Return" />
-                <input value={price} onChange={e => setprice(e.target.value)} type="number" placeholder="price" />
-                <button>Edit vacation</button>
+                <div className="input-group container">
+                <input required className="form-control" value={dest} onChange={e => setdest(e.target.value)} type="text" placeholder="destination" />
+                <input required className="form-control" value={descrip} onChange={e => setdescrip(e.target.value)} type="text" placeholder="description" />
+                <input required className="form-control" onChange={e => setpicture(e.target.value)} type="text" placeholder="picture_URL" />
+                <input required className="form-control" value={dept} onChange={e => setdept(e.target.value)} type="date" placeholder="departure" />
+                <input required className="form-control" value={arv} onChange={e => setarv(e.target.value)} type="date" placeholder="Return" />
+                <input required className="form-control" value={price} onChange={e => setprice(e.target.value)} type="number" placeholder="price" />
+                <button className="btn btn-primary">Edit vacation</button>
+                </div>
             </form>
         </div>
     )

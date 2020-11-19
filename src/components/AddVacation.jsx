@@ -26,7 +26,7 @@ export default function AddVacation({ history }) {
             alert("hey sir you need to fill all the feilds before adding a vacation!")
         } else {
             try {
-                let res = await fetch("http://localhost:1000/vacations/add", {
+                let res = await fetch("https://e6xpl.sse.codesandbox.io/vacations/add", {
                     method: "POST",
                     headers: { "content-type": "application/json", "Authorization": localStorage.token },
                     body: JSON.stringify({ descrip, dest, picture, dept, arv, price })
@@ -42,17 +42,19 @@ export default function AddVacation({ history }) {
 
 
     return (
-        <div className="header">
-            <Link to="/">back</Link>
-            <h1>add vacation</h1>
+        <div className="container">
+            <h1 className="header">Add vacation</h1>
+            <Link className="btn btn-primary mb-2" to="/">back</Link>
             <form onSubmit={handleSubmit} >
-                <input onChange={e => setdest(e.target.value)} type="text" placeholder="destination" />
-                <input onChange={e => setdescrip(e.target.value)} type="text" placeholder="description" />
-                <input onChange={e => setpicture(e.target.value)} type="text" placeholder="picture_URL" />
-                <input onChange={e => setdept(e.target.value)} type="date" placeholder="departure" />
-                <input onChange={e => setarv(e.target.value)} type="date" placeholder="Return" />
-                <input onChange={e => setprice(e.target.value)} type="number" placeholder="price" />
-                <button>Add vacation</button>
+                <div className="input-group container">
+                    <input className="form-control" required autoComplete onChange={e => setdest(e.target.value)} type="text" placeholder="destination" />
+                    <input className="form-control" required autoComplete onChange={e => setdescrip(e.target.value)} type="text" placeholder="description" />
+                    <input className="form-control" required autoComplete onChange={e => setpicture(e.target.value)} type="text" placeholder="picture URL" />
+                    <input className="form-control" required autoComplete onChange={e => setdept(e.target.value)} type="date" placeholder="departure" />
+                    <input className="form-control" required autoComplete onChange={e => setarv(e.target.value)} type="date" placeholder="Return" />
+                    <input className="form-control" required autoComplete onChange={e => setprice(e.target.value)} type="number" placeholder="price" />
+                    <button className="btn btn-primary" >Add vacation</button>
+                </div>
             </form>
         </div>
     )
